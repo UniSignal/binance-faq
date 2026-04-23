@@ -100,6 +100,18 @@ async def monitor():
                         logger.info("已发送: %s", article.get("title", ""))
             except Exception:
                 logger.exception("监控 FAQ 失败")
+                try:
+                    async with session.post(
+                        f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage",
+                        json={
+                            "chat_id": CHAT_ID,
+                            "text": "Binance FAQ 监控出错，请检查日志",
+                            "disable_web_page_preview": True,
+                        },
+                    ) as resp:
+                        await resp.json()
+                except Exception:
+                    logger.exception("发送错误通知失败")
 
             await asyncio.sleep(5)
 
