@@ -113,7 +113,7 @@ async def monitor():
                 except Exception:
                     logger.exception("发送错误通知失败")
 
-            await asyncio.sleep(5)
+            await asyncio.sleep(3)
 
 
 if __name__ == "__main__":
