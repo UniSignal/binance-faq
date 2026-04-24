@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN") or os.getenv(
     "BOT_TOKEN", "8520132181:AAGli6V5x7flqkfognrwo91OfpCz61dlofQ"
 )
-CHAT_ID = os.getenv("TELEGRAM_CHAT_ID", "6259865244")
+CHAT_ID = os.getenv("TELEGRAM_CHAT_ID", "-1003912057240")
 
 
 async def monitor():
