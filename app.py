@@ -36,7 +36,7 @@ async def monitor():
                         "bnc-time-zone": "Asia/Shanghai",
                         "clienttype": "web",
                         "content-type": "application/json",
-                        "lang": "zh-CN",
+                        # "lang": "zh-CN",
                         "priority": "u=1, i",
                         "referer": "https://www.binance.com/zh-CN/support/faq/list/359",
                         "sec-ch-ua": '"Google Chrome";v="147", "Not.A/Brand";v="8", "Chromium";v="147"',
