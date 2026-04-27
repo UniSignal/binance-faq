@@ -5,6 +5,8 @@ import os
 import aiohttp
 from dotenv import load_dotenv
 
+from google_translate import translate
+
 load_dotenv()
 
 logging.basicConfig(
@@ -87,11 +89,22 @@ async def monitor():
                     for article in sorted(
                         new_articles, key=lambda x: x.get("releaseDate", 0)
                     ):
+                        title = article.get("title", "")
+                        try:
+                            title_zh = await translate(
+                                session,
+                                title,
+                                source_lang="en",
+                                target_lang="zh-CN",
+                            )
+                        except Exception as exc:
+                            logger.warning("翻译失败，回退到原标题: %s", exc)
+                            title_zh = title
                         async with session.post(
                             f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage",
                             json={
                                 "chat_id": CHAT_ID,
-                                "text": f"Binance FAQ 新增内容如下\n分类: {article.get('catalogName', '')}\n标题: {article.get('title', '')}\n链接: https://www.binance.com/zh-CN/support/faq/detail/{article['code']}",
+                                "text": f"Binance FAQ 新增内容如下\n分类: {article.get('catalogName', '')}\n标题: {title}\n标题(中文): {title_zh}\n链接: https://www.binance.com/zh-CN/support/faq/detail/{article['code']}",
                                 "disable_web_page_preview": True,
                             },
                         ) as resp:
