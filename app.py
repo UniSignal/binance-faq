@@ -4,7 +4,6 @@ import os
 
 import aiohttp
 from dotenv import load_dotenv
-
 from google_translate import translate
 
 load_dotenv()
